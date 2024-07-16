@@ -10,7 +10,7 @@ function enqueue_monitoring_app() {
     // Enqueue the main JS file of the React app
     wp_enqueue_script(
         'monitoring-app-js',
-        plugins_url('monitoring/static/js/main.fb9d489a.js', __FILE__),  // Correction ici
+        plugins_url('/static/js/main.fb9d489a.js', __FILE__),  // Correction ici
         array(),
         null,
         true
