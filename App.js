@@ -1,40 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { auth } from './firebase';
-import UserDashboard from './UserDashboard';
-import AdminDashboard from './AdminDashboard';
-import Login from './Login';
-import Register from './Register';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import App from './App';
 
-const App = () => {
-  const [user, setUser] = useState(null);
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+    background: {
+      default: '#f4f6f8',
+    },
+  },
+  typography: {
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 'bold',
+    },
+    h2: {
+      fontSize: '2rem',
+      fontWeight: 'bold',
+    },
+    h3: {
+      fontSize: '1.75rem',
+      fontWeight: 'bold',
+    },
+    body1: {
+      fontSize: '1rem',
+    },
+  },
+});
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const role = user.email === 'yannrosemark@gmail.com' ? 'admin' : 'user';
-        setUser({ ...user, role });
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      {user ? (
-        <>
-          <Route path="/" element={user.role === 'admin' ? <AdminDashboard /> : <UserDashboard />} />
-        </>
-      ) : (
-        <Route path="/" element={<Navigate to="/login" />} />
-      )}
-    </Routes>
-  );
-};
-
-export default App;
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOMContentLoaded event fired');
+  const rootElement = document.getElementById('root');
+  if (rootElement) {
+    console.log('Root element found, mounting React app');
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(
+      <React.StrictMode>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </React.StrictMode>
+    );
+  } else {
+    console.error('Root element not found');
+  }
+});
