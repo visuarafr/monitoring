@@ -63,6 +63,7 @@ input[type="password"],
 input[type="number"],
 input[type="date"] {
     padding: 10px;
+    margin-bottom: 15px; /* Ajouter de l'espace entre les champs */
     border: 1px solid #d1d5db;
     border-radius: 4px;
     font-size: 16px;
