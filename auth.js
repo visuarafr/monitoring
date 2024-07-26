@@ -1,4 +1,4 @@
-import { auth, db } from './firebase-config';
+import { auth, db } from './firebase-config.js';
 
 // Création de compte
 const signup = async (email, password, role) => {
