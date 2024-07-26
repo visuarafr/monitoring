@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Monitoring App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sales Monitoring</h1>
+        <div id="login-section">
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button id="loginBtn">Login</button>
+            <button id="logoutBtn" style="display:none;">Logout</button>
+        </div>
+        <div id="data-section" style="display:none;">
+            <form id="dataForm">
+                <label for="calls">Nombre d'appels:</label>
+                <input type="number" id="calls" name="calls" required>
+                <label for="appointments">Nombre de RDV:</label>
+                <input type="number" id="appointments" name="appointments" required>
+                <button type="submit">Enregistrer</button>
+            </form>
+            <h2>Historique</h2>
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Commercial</th>
+                        <th>Nombre d'appels</th>
+                        <th>Nombre de RDV</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
