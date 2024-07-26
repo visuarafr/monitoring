@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de Bord</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="main.js"></script>
 </head>
 <body>
-  <!-- Tableau de Bord des Commerciaux -->
-  <div id="commercial-dashboard" style="display:none;">
-    <h2>Tableau de Bord Commercial</h2>
-    <canvas id="callsChart"></canvas>
-    <canvas id="appointmentsChart"></canvas>
-    <table id="activityTable">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Appels</th>
-          <th>Rendez-vous</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button id="logout-btn">Déconnexion</button>
-  </div>
+    <!-- Tableau de Bord des Commerciaux -->
+    <div id="commercial-dashboard" style="display:none;">
+        <h2>Tableau de Bord Commercial</h2>
+        <canvas id="callsChart"></canvas>
+        <canvas id="appointmentsChart"></canvas>
+        <form id="dataForm">
+            <h3>Ajouter des données</h3>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="calls">Appels:</label>
+            <input type="number" id="calls" name="calls" required>
+            <label for="appointments">Rendez-vous:</label>
+            <input type="number" id="appointments" name="appointments" required>
+            <button type="submit">Ajouter</button>
+        </form>
+        <table id="activityTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Appels</th>
+                    <th>Rendez-vous</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="logout-btn">Déconnexion</button>
+    </div>
 
-  <!-- Tableau de Bord des Administrateurs -->
-  <div id="admin-dashboard" style="display:none;">
-    <h2>Tableau de Bord Administrateur</h2>
-    <canvas id="globalCallsChart"></canvas>
-    <canvas id="globalAppointmentsChart"></canvas>
-    <table id="globalActivityTable">
-      <thead>
-        <tr>
-          <th>Commercial</th>
-          <th>Date</th>
-          <th>Appels</th>
-          <th>Rendez-vous</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button id="logout-btn-admin">Déconnexion</button>
-  </div>
+    <!-- Tableau de Bord des Administrateurs -->
+    <div id="admin-dashboard" style="display:none;">
+        <h2>Tableau de Bord Administrateur</h2>
+        <canvas id="globalCallsChart"></canvas>
+        <canvas id="globalAppointmentsChart"></canvas>
+        <table id="globalActivityTable">
+            <thead>
+                <tr>
+                    <th>Commercial</th>
+                    <th>Date</th>
+                    <th>Appels</th>
+                    <th>Rendez-vous</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="logout-btn-admin">Déconnexion</button>
+    </div>
 </body>
 </html>
