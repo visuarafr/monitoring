@@ -2,7 +2,11 @@ auth.onAuthStateChanged(user => {
     if (!user) {
         window.location.href = 'index.html';
     } else {
-        loadUserData();
+        if (adminEmails.includes(user.email)) {
+            window.location.href = 'admin-dashboard.html';
+        } else {
+            loadUserData();
+        }
     }
 });
 
@@ -36,10 +40,6 @@ document.getElementById('dataForm').addEventListener('submit', function(e) {
 function loadUserData() {
     var user = auth.currentUser;
     var query = db.collection('salesData').where('salespersonId', '==', user.uid);
-
-    if (user.email === 'admin@example.com') {
-        query = db.collection('salesData');
-    }
 
     query.get().then(querySnapshot => {
         var dataTable = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
