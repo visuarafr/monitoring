@@ -23,6 +23,11 @@ window.addEventListener('load', () => {
     }
   });
 
+  let callsChart;
+  let appointmentsChart;
+  let globalCallsChart;
+  let globalAppointmentsChart;
+
   const showCommercialDashboard = (userId) => {
     document.getElementById('commercial-dashboard').style.display = 'block';
     db.collection('activities').where('userId', '==', userId).onSnapshot(snapshot => {
@@ -67,7 +72,8 @@ window.addEventListener('load', () => {
     const appointments = activities.map(a => a.appointments);
     const dates = activities.map(a => a.date);
 
-    new Chart(document.getElementById('callsChart'), {
+    if (callsChart) callsChart.destroy();
+    callsChart = new Chart(document.getElementById('callsChart'), {
       type: 'bar',
       data: {
         labels: dates,
@@ -78,7 +84,8 @@ window.addEventListener('load', () => {
       }
     });
 
-    new Chart(document.getElementById('appointmentsChart'), {
+    if (appointmentsChart) appointmentsChart.destroy();
+    appointmentsChart = new Chart(document.getElementById('appointmentsChart'), {
       type: 'bar',
       data: {
         labels: dates,
@@ -112,7 +119,8 @@ window.addEventListener('load', () => {
 
     const users = Object.keys(callsByUser);
 
-    new Chart(document.getElementById('globalCallsChart'), {
+    if (globalCallsChart) globalCallsChart.destroy();
+    globalCallsChart = new Chart(document.getElementById('globalCallsChart'), {
       type: 'bar',
       data: {
         labels: users,
@@ -123,7 +131,8 @@ window.addEventListener('load', () => {
       }
     });
 
-    new Chart(document.getElementById('globalAppointmentsChart'), {
+    if (globalAppointmentsChart) globalAppointmentsChart.destroy();
+    globalAppointmentsChart = new Chart(document.getElementById('globalAppointmentsChart'), {
       type: 'bar',
       data: {
         labels: users,
