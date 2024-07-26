@@ -73,6 +73,8 @@ window.addEventListener('load', () => {
     const dates = activities.map(a => a.date);
 
     if (callsChart) callsChart.destroy();
+    if (appointmentsChart) appointmentsChart.destroy();
+
     callsChart = new Chart(document.getElementById('callsChart'), {
       type: 'bar',
       data: {
@@ -84,7 +86,6 @@ window.addEventListener('load', () => {
       }
     });
 
-    if (appointmentsChart) appointmentsChart.destroy();
     appointmentsChart = new Chart(document.getElementById('appointmentsChart'), {
       type: 'bar',
       data: {
@@ -120,6 +121,8 @@ window.addEventListener('load', () => {
     const users = Object.keys(callsByUser);
 
     if (globalCallsChart) globalCallsChart.destroy();
+    if (globalAppointmentsChart) globalAppointmentsChart.destroy();
+
     globalCallsChart = new Chart(document.getElementById('globalCallsChart'), {
       type: 'bar',
       data: {
@@ -131,7 +134,6 @@ window.addEventListener('load', () => {
       }
     });
 
-    if (globalAppointmentsChart) globalAppointmentsChart.destroy();
     globalAppointmentsChart = new Chart(document.getElementById('globalAppointmentsChart'), {
       type: 'bar',
       data: {
