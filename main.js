@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   // Surveillance de l'état de l'authentification
   auth.onAuthStateChanged(async (user) => {
     if (user) {
@@ -96,36 +96,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const users = Object.keys(callsByUser);
 
-    new Chart(document.getElementById('globalCallsChart'), {
-      type: 'bar',
-      data: {
-        labels: users,
-        datasets: [{
-          label: 'Appels',
-          data: users.map(user => callsByUser[user].reduce((a, b) => a + b, 0))
-        }]
-      }
-    });
-
-    new Chart(document.getElementById('globalAppointmentsChart'), {
-      type: 'bar',
-      data: {
-        labels: users,
-        datasets: [{
-          label: 'Rendez-vous',
-          data: users.map(user => appointmentsByUser[user].reduce((a, b) => a + b, 0))
-        }]
-      }
-    });
-
-    const globalActivityTableBody = document.getElementById('globalActivityTable').getElementsByTagName('tbody')[0];
-    globalActivityTableBody.innerHTML = '';
-    activities.forEach(activity => {
-      const row = globalActivityTableBody.insertRow();
-      row.insertCell(0).innerText = activity.userId;
-      row.insertCell(1).innerText = activity.date;
-      row.insertCell(2).innerText = activity.calls;
-      row.insertCell(3).innerText = activity.appointments;
-    });
-  };
-});
+   
