@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
         email: user.email,
         role: 'user'
       });
+      window.location.href = 'login.html'; // Redirige vers la page de connexion après inscription
     } catch (error) {
       console.error('Erreur de création de compte:', error);
     }
@@ -18,26 +19,14 @@ window.addEventListener('load', () => {
   const login = async (email, password) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
+      window.location.href = 'dashboard.html'; // Redirige vers la page de tableau de bord après connexion
     } catch (error) {
       console.error('Erreur de connexion:', error);
     }
   };
 
-  // Déconnexion utilisateur
-  const logout = async () => {
-    try {
-      await auth.signOut();
-    } catch (error) {
-      console.error('Erreur de déconnexion:', error);
-    }
-  };
-
-  // Événements d'authentification
+  // Gestion des événements sur la page de connexion
   const loginBtn = document.getElementById('login-btn');
-  const signupBtn = document.getElementById('signup-btn');
-  const logoutBtn = document.getElementById('logout-btn');
-  const logoutBtnAdmin = document.getElementById('logout-btn-admin');
-
   if (loginBtn) {
     loginBtn.addEventListener('click', () => {
       const email = document.getElementById('email').value;
@@ -46,6 +35,8 @@ window.addEventListener('load', () => {
     });
   }
 
+  // Gestion des événements sur la page d'inscription
+  const signupBtn = document.getElementById('signup-btn');
   if (signupBtn) {
     signupBtn.addEventListener('click', () => {
       const name = document.getElementById('name').value;
@@ -53,13 +44,5 @@ window.addEventListener('load', () => {
       const password = document.getElementById('password').value;
       signup(name, email, password);
     });
-  }
-
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => logout());
-  }
-
-  if (logoutBtnAdmin) {
-    logoutBtnAdmin.addEventListener('click', () => logout());
   }
 });
