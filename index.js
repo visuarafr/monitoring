@@ -2,13 +2,11 @@
 
 // Toggle between login and signup forms
 document.getElementById('show-signup').addEventListener('click', function() {
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('signup-section').style.display = 'block';
+    document.getElementById('auth-section').classList.add('show-signup');
 });
 
 document.getElementById('show-login').addEventListener('click', function() {
-    document.getElementById('signup-section').style.display = 'none';
-    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('auth-section').classList.remove('show-signup');
 });
 
 // Login
