@@ -12,7 +12,7 @@ body {
 
 .container {
     width: 90%;
-    max-width: 400px;
+    max-width: 1000px;
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
@@ -63,11 +63,11 @@ input[type="password"],
 input[type="number"],
 input[type="date"] {
     padding: 10px;
-    margin-bottom: 15px; /* Ajouter de l'espace entre les champs */
+    margin-bottom: 15px;
     border: 1px solid #d1d5db;
     border-radius: 4px;
     font-size: 16px;
-    width: 80%; /* Réduire la largeur pour un meilleur rendu */
+    width: 80%;
     box-sizing: border-box;
     background-color: #f9fafb;
     transition: border-color 0.3s, background-color 0.3s;
@@ -107,4 +107,12 @@ button:active {
 
 p {
     margin-top: 20px;
+}
+
+#filters {
+    margin-bottom: 20px;
+}
+
+canvas {
+    margin-bottom: 20px;
 }
