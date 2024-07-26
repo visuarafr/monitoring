@@ -1,17 +1,5 @@
-// Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyCu5Ss3XxK9xhFxbsTiOUj6GBYJxS5MuiE",
-    authDomain: "monitoring-27236.firebaseapp.com",
-    projectId: "monitoring-27236",
-    storageBucket: "monitoring-27236.appspot.com",
-    messagingSenderId: "853833159557",
-    appId: "1:853833159557:web:8af061f2d3b5cf9f912aec"
-};
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-var db = firebase.firestore();
-var auth = firebase.auth();
+document.write('<script src="firebase-config.js"></script>');
 
 auth.onAuthStateChanged(user => {
     if (!user) {
@@ -36,6 +24,7 @@ document.getElementById('dataForm').addEventListener('submit', function(e) {
     var user = auth.currentUser;
 
     db.collection('salesData').add({
+        salespersonId: user.uid,
         salesperson: user.email,
         calls: calls,
         appointments: appointments,
@@ -49,7 +38,7 @@ document.getElementById('dataForm').addEventListener('submit', function(e) {
 
 function loadUserData() {
     var user = auth.currentUser;
-    var query = db.collection('salesData').where('salesperson', '==', user.email);
+    var query = db.collection('salesData').where('salespersonId', '==', user.uid);
 
     if (user.email === 'admin@example.com') { // Remplacez avec l'email de l'admin
         query = db.collection('salesData');
