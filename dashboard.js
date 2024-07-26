@@ -1,8 +1,6 @@
-// Inclure firebase-config.js avant d'exécuter ce script
-
 auth.onAuthStateChanged(user => {
     if (!user) {
-        window.location.href = "index.html";
+        window.location.href = 'index.html';
     } else {
         loadUserData();
     }
@@ -10,9 +8,9 @@ auth.onAuthStateChanged(user => {
 
 document.getElementById('logoutBtn').addEventListener('click', function() {
     auth.signOut().then(() => {
-        window.location.href = "index.html";
+        window.location.href = 'index.html';
     }).catch(error => {
-        console.error("Error signing out: ", error);
+        console.error('Error signing out: ', error);
     });
 });
 
@@ -31,7 +29,7 @@ document.getElementById('dataForm').addEventListener('submit', function(e) {
     }).then(() => {
         loadUserData();
     }).catch(error => {
-        console.error("Error adding document: ", error);
+        console.error('Error adding document: ', error);
     });
 });
 
@@ -39,7 +37,7 @@ function loadUserData() {
     var user = auth.currentUser;
     var query = db.collection('salesData').where('salespersonId', '==', user.uid);
 
-    if (user.email === 'admin@example.com') { // Remplacez avec l'email de l'admin
+    if (user.email === 'admin@example.com') {
         query = db.collection('salesData');
     }
 
@@ -56,6 +54,6 @@ function loadUserData() {
             row.insertCell(3).innerText = new Date(data.date.seconds * 1000).toLocaleDateString();
         });
     }).catch(error => {
-        console.error("Error getting documents: ", error);
+        console.error('Error getting documents: ', error);
     });
 }
