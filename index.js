@@ -1,12 +1,14 @@
-// Inclure firebase-config.js avant d'exécuter ce script
-
 // Toggle between login and signup forms
 document.getElementById('show-signup').addEventListener('click', function() {
     document.getElementById('auth-section').classList.add('show-signup');
+    document.getElementById('signup-section').style.display = 'block';
 });
 
 document.getElementById('show-login').addEventListener('click', function() {
     document.getElementById('auth-section').classList.remove('show-signup');
+    setTimeout(() => {
+        document.getElementById('signup-section').style.display = 'none';
+    }, 500); // Correspond au temps de transition défini dans CSS
 });
 
 // Login
