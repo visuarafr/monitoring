@@ -1,5 +1,3 @@
-import { auth, db } from './firebase-config.js';
-
 // Création de compte
 const signup = async (email, password, role) => {
   try {
@@ -32,5 +30,19 @@ const logout = async () => {
   }
 };
 
-// Export des fonctions d'authentification
-export { signup, login, logout };
+// Événements d'authentification
+document.getElementById('login-btn').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  login(email, password);
+});
+
+document.getElementById('signup-btn').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const role = prompt('Role (commercial/admin):');
+  signup(email, password, role);
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => logout());
+document.getElementById('logout-btn-admin').addEventListener('click', () => logout());
