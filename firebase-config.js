@@ -16,3 +16,6 @@ if (!firebase.apps.length) {
 
 var auth = firebase.auth();
 var db = firebase.firestore();
+
+// Liste des emails des administrateurs
+const adminEmails = ["yannmartial@visuara.fr", "noe.labigne@visuara.fr"];
