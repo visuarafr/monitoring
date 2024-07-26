@@ -12,7 +12,7 @@ body {
 
 .container {
     width: 90%;
-    max-width: 800px;
+    max-width: 400px;
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
@@ -21,6 +21,7 @@ body {
     transform: translateY(30px);
     opacity: 0;
     animation: fadeIn 1s forwards;
+    text-align: center;
 }
 
 @keyframes fadeIn {
@@ -47,6 +48,7 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
 }
 
@@ -56,24 +58,24 @@ label {
 }
 
 input[type="text"],
-input[type="number"],
 input[type="email"],
 input[type="password"],
+input[type="number"],
 input[type="date"] {
     padding: 10px;
     border: 1px solid #d1d5db;
     border-radius: 4px;
     font-size: 16px;
-    width: 100%;
+    width: 80%;
     box-sizing: border-box;
     background-color: #f9fafb;
     transition: border-color 0.3s, background-color 0.3s;
 }
 
 input[type="text"]:focus,
-input[type="number"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
+input[type="number"]:focus,
 input[type="date"]:focus {
     border-color: #3b82f6;
     outline: none;
@@ -89,6 +91,7 @@ button {
     color: white;
     cursor: pointer;
     font-size: 16px;
+    width: 50%;
     transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -101,51 +104,6 @@ button:active {
     background-color: #1d4ed8;
 }
 
-#auth-section {
-    position: relative;
-    height: 400px;
-}
-
-#login-section,
-#signup-section {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-#login-section {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-#signup-section {
-    opacity: 0;
-    transform: translateX(-100%);
-}
-
-.show-signup #login-section {
-    opacity: 0;
-    transform: translateX(100%);
-}
-
-.show-signup #signup-section {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-@media (max-width: 600px) {
-    .container {
-        width: 100%;
-        margin: 10px;
-    }
-
-    form {
-        gap: 10px;
-    }
-
-    button {
-        width: 100%;
-    }
+p {
+    margin-top: 20px;
 }
