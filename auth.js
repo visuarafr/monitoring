@@ -1,19 +1,20 @@
 window.addEventListener('load', () => {
-  // Création de compte
-  const signup = async (email, password, role) => {
+  // Création de compte utilisateur
+  const signup = async (name, email, password) => {
     try {
       const userCredential = await auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
       await db.collection('users').doc(user.uid).set({
+        name: name,
         email: user.email,
-        role: role
+        role: 'user'
       });
     } catch (error) {
       console.error('Erreur de création de compte:', error);
     }
   };
 
-  // Connexion
+  // Connexion utilisateur
   const login = async (email, password) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
@@ -22,7 +23,7 @@ window.addEventListener('load', () => {
     }
   };
 
-  // Déconnexion
+  // Déconnexion utilisateur
   const logout = async () => {
     try {
       await auth.signOut();
@@ -47,10 +48,10 @@ window.addEventListener('load', () => {
 
   if (signupBtn) {
     signupBtn.addEventListener('click', () => {
+      const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      const role = prompt('Role (commercial/admin):');
-      signup(email, password, role);
+      signup(name, email, password);
     });
   }
 
