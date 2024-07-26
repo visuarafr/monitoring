@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sales Monitoring App</title>
+    <title>Sales Monitoring App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Login</h1>
-        <div id="login-section">
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            <button id="loginBtn">Login</button>
+        <h1>Sales Monitoring App</h1>
+        <div id="auth-section">
+            <div id="login-section">
+                <h2>Login</h2>
+                <input type="email" id="login-email" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Password">
+                <button id="loginBtn">Login</button>
+                <p>Don't have an account? <a href="#" id="show-signup">Sign up here</a></p>
+            </div>
+            <div id="signup-section" style="display:none;">
+                <h2>Sign Up</h2>
+                <input type="text" id="signup-name" placeholder="Name">
+                <input type="email" id="signup-email" placeholder="Email">
+                <input type="password" id="signup-password" placeholder="Password">
+                <button id="signupBtn">Sign Up</button>
+                <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+            </div>
         </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-    <script src="login.js"></script>
-</body>
-</html>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js">
