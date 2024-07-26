@@ -3,14 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil</title>
+  <title>Connexion</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
 </head>
 <body>
-  <div id="home-container">
-    <h1>Bienvenue sur l'application de suivi des performances des commerciaux</h1>
-    <button onclick="location.href='login.html'">Connexion</button>
-    <button onclick="location.href='signup.html'">Inscription</button>
+  <div id="auth-container">
+    <h2>Connexion</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Mot de passe">
+    <button id="login-btn">Connexion</button>
+    <p>Pas encore de compte ? <a href="signup.html">Inscrivez-vous ici</a></p>
   </div>
 </body>
 </html>
