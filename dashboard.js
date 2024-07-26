@@ -1,5 +1,4 @@
-// Initialize Firebase
-document.write('<script src="firebase-config.js"></script>');
+// Inclure firebase-config.js avant d'exécuter ce script
 
 auth.onAuthStateChanged(user => {
     if (!user) {
