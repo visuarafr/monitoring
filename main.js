@@ -23,15 +23,12 @@ window.addEventListener('load', () => {
         console.error('Erreur de récupération des données utilisateur:', error);
       }
     } else {
-      document.getElementById('auth-container').style.display = 'block';
-      document.getElementById('commercial-dashboard').style.display = 'none';
-      document.getElementById('admin-dashboard').style.display = 'none';
+      window.location.href = 'login.html'; // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
     }
   });
 
   // Affichage du tableau de bord commercial
   const showCommercialDashboard = (userId) => {
-    document.getElementById('auth-container').style.display = 'none';
     document.getElementById('commercial-dashboard').style.display = 'block';
     db.collection('activities').where('userId', '==', userId).onSnapshot(snapshot => {
       const activities = snapshot.docs.map(doc => doc.data());
@@ -41,7 +38,6 @@ window.addEventListener('load', () => {
 
   // Affichage du tableau de bord administrateur
   const showAdminDashboard = () => {
-    document.getElementById('auth-container').style.display = 'none';
     document.getElementById('admin-dashboard').style.display = 'block';
     db.collection('activities').onSnapshot(snapshot => {
       const activities = snapshot.docs.map(doc => doc.data());
@@ -83,7 +79,7 @@ window.addEventListener('load', () => {
       const row = activityTableBody.insertRow();
       row.insertCell(0).innerText = activity.date;
       row.insertCell(1).innerText = activity.calls;
-      row.insertCell(2).innerText = activity.appointments);
+      row.insertCell(2).innerText = activity.appointments;
     });
   };
 
@@ -133,4 +129,22 @@ window.addEventListener('load', () => {
       row.insertCell(3).innerText = activity.appointments;
     });
   };
+
+  // Déconnexion
+  const logoutBtn = document.getElementById('logout-btn');
+  const logoutBtnAdmin = document.getElementById('logout-btn-admin');
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      await auth.signOut();
+      window.location.href = 'login.html'; // Redirige vers la page de connexion après déconnexion
+    });
+  }
+
+  if (logoutBtnAdmin) {
+    logoutBtnAdmin.addEventListener('click', async () => {
+      await auth.signOut();
+      window.location.href = 'login.html'; // Redirige vers la page de connexion après déconnexion
+    });
+  }
 });
