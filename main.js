@@ -1,5 +1,5 @@
-import { auth, db } from './firebase-config';
-import { signup, login, logout } from './auth';
+import { auth, db } from './firebase-config.js';
+import { signup, login, logout } from './auth.js';
 
 // Éléments de l'interface
 const authContainer = document.getElementById('auth-container');
