@@ -67,7 +67,7 @@ input[type="date"] {
     border: 1px solid #d1d5db;
     border-radius: 4px;
     font-size: 16px;
-    width: 80%;
+    width: 80%; /* Réduire la largeur pour un meilleur rendu */
     box-sizing: border-box;
     background-color: #f9fafb;
     transition: border-color 0.3s, background-color 0.3s;
