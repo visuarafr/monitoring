@@ -5,23 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accueil</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="firebase-config.js"></script>
-  <script>
-    // Vérification de l'authentification au chargement de la page
-    window.addEventListener('load', () => {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          window.location.href = 'dashboard.html'; // Redirige vers le tableau de bord si l'utilisateur est authentifié
-        } else {
-          window.location.href = 'login.html'; // Redirige vers la page de connexion si l'utilisateur n'est pas authentifié
-        }
-      });
-    });
-  </script>
 </head>
 <body>
-  <h1>Redirection en cours...</h1>
+  <div id="home-container">
+    <h1>Bienvenue sur l'application de suivi des performances des commerciaux</h1>
+    <button onclick="location.href='login.html'">Connexion</button>
+    <button onclick="location.href='signup.html'">Inscription</button>
+  </div>
 </body>
 </html>
