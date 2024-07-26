@@ -3,16 +3,21 @@ window.addEventListener('load', () => {
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       try {
-        const doc = await db.collection('users').doc(user.uid).get();
-        if (doc.exists) {
-          const role = doc.data().role;
-          if (role === 'commercial') {
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        if (userDoc.exists) {
+          const role = userDoc.data().role;
+          if (role === 'user') {
             showCommercialDashboard(user.uid);
-          } else if (role === 'admin') {
-            showAdminDashboard();
+          } else {
+            const adminDoc = await db.collection('admins').doc(user.uid).get();
+            if (adminDoc.exists) {
+              showAdminDashboard();
+            } else {
+              console.error('No admin privileges');
+            }
           }
         } else {
-          console.error('No such document!');
+          console.error('No such user document!');
         }
       } catch (error) {
         console.error('Erreur de récupération des données utilisateur:', error);
@@ -78,7 +83,7 @@ window.addEventListener('load', () => {
       const row = activityTableBody.insertRow();
       row.insertCell(0).innerText = activity.date;
       row.insertCell(1).innerText = activity.calls;
-      row.insertCell(2).innerText = activity.appointments;
+      row.insertCell(2).innerText = activity.appointments);
     });
   };
 
@@ -128,4 +133,4 @@ window.addEventListener('load', () => {
       row.insertCell(3).innerText = activity.appointments;
     });
   };
-}); // Fin de window.addEventListener
+});
