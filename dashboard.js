@@ -1,8 +1,4 @@
-// Variables pour les graphiques
-let callsChart;
-let appointmentsChart;
-let comparativeChart;
-
+// dashboard.js
 auth.onAuthStateChanged(user => {
     if (!user) {
         window.location.href = 'index.html';
@@ -28,26 +24,6 @@ document.getElementById('logoutBtn').addEventListener('click', function() {
         window.location.href = 'index.html';
     }).catch(error => {
         console.error('Error signing out: ', error);
-    });
-});
-
-document.getElementById('dataForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var calls = document.getElementById('calls').value;
-    var appointments = document.getElementById('appointments').value;
-    var user = auth.currentUser;
-
-    db.collection('salesData').add({
-        salespersonId: user.uid,
-        salesperson: user.email,
-        calls: calls,
-        appointments: appointments,
-        date: new Date()
-    }).then(() => {
-        loadUserData();
-        updateCharts();
-    }).catch(error => {
-        console.error('Error adding document: ', error);
     });
 });
 
@@ -86,7 +62,6 @@ function loadUserData() {
 function initializeCharts() {
     const ctxCalls = document.getElementById('callsChart').getContext('2d');
     const ctxAppointments = document.getElementById('appointmentsChart').getContext('2d');
-    const ctxComparative = document.getElementById('comparativeChart').getContext('2d');
 
     callsChart = new Chart(ctxCalls, {
         type: 'bar',
@@ -118,34 +93,6 @@ function initializeCharts() {
                 data: [],
                 backgroundColor: 'rgba(153, 102, 255, 0.2)',
                 borderColor: 'rgba(153, 102, 255, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    comparativeChart = new Chart(ctxComparative, {
-        type: 'bar',
-        data: {
-            labels: [], // Les commerciaux
-            datasets: [{
-                label: 'Nombre d\'appels',
-                data: [],
-                backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                borderColor: 'rgba(255, 159, 64, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Nombre de RDV',
-                data: [],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             }]
         },
@@ -190,33 +137,6 @@ function updateCharts() {
         appointmentsChart.data.labels = labels;
         appointmentsChart.data.datasets[0].data = appointmentsData;
         appointmentsChart.update();
-    }).catch(error => {
-        console.error('Error getting documents: ', error);
-    });
-
-    // Mettre à jour le graphique comparatif
-    db.collection('salesData').get().then(querySnapshot => {
-        var comparativeLabels = [];
-        var comparativeCallsData = [];
-        var comparativeAppointmentsData = [];
-
-        querySnapshot.forEach(doc => {
-            var data = doc.data();
-            if (!comparativeLabels.includes(data.salesperson)) {
-                comparativeLabels.push(data.salesperson);
-                comparativeCallsData.push(data.calls);
-                comparativeAppointmentsData.push(data.appointments);
-            } else {
-                var index = comparativeLabels.indexOf(data.salesperson);
-                comparativeCallsData[index] += data.calls;
-                comparativeAppointmentsData[index] += data.appointments;
-            }
-        });
-
-        comparativeChart.data.labels = comparativeLabels;
-        comparativeChart.data.datasets[0].data = comparativeCallsData;
-        comparativeChart.data.datasets[1].data = comparativeAppointmentsData;
-        comparativeChart.update();
     }).catch(error => {
         console.error('Error getting documents: ', error);
     });
