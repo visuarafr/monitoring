@@ -128,4 +128,4 @@ window.addEventListener('load', () => {
       row.insertCell(3).innerText = activity.appointments;
     });
   };
-});
+}); // Fin de window.addEventListener
