@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   // Création de compte
   const signup = async (email, password, role) => {
     try {
@@ -32,19 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Événements d'authentification
-  document.getElementById('login-btn').addEventListener('click', () => {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    login(email, password);
-  });
+  const loginBtn = document.getElementById('login-btn');
+  const signupBtn = document.getElementById('signup-btn');
+  const logoutBtn = document.getElementById('logout-btn');
+  const logoutBtnAdmin = document.getElementById('logout-btn-admin');
 
-  document.getElementById('signup-btn').addEventListener('click', () => {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const role = prompt('Role (commercial/admin):');
-    signup(email, password, role);
-  });
+  if (loginBtn) {
+    loginBtn.addEventListener('click', () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      login(email, password);
+    });
+  }
 
-  document.getElementById('logout-btn').addEventListener('click', () => logout());
-  document.getElementById('logout-btn-admin').addEventListener('click', () => logout());
+  if (signupBtn) {
+    signupBtn.addEventListener('click', () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const role = prompt('Role (commercial/admin):');
+      signup(email, password, role);
+    });
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => logout());
+  }
+
+  if (logoutBtnAdmin) {
+    logoutBtnAdmin.addEventListener('click', () => logout());
+  }
 });
