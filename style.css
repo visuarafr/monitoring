@@ -101,52 +101,38 @@ button:active {
     background-color: #1d4ed8;
 }
 
-table {
+#auth-section {
+    position: relative;
+    height: 400px; /* Adjust based on your content */
+}
+
+#login-section,
+#signup-section {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#login-section {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#signup-section {
     opacity: 0;
-    animation: tableFadeIn 1s forwards;
-    animation-delay: 0.5s;
+    transform: translateX(-100%);
 }
 
-@keyframes tableFadeIn {
-    to {
-        opacity: 1;
-    }
+.show-signup #login-section {
+    opacity: 0;
+    transform: translateX(100%);
 }
 
-table, th, td {
-    border: 1px solid #e5e7eb;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-    transition: background-color 0.3s;
-}
-
-thead {
-    background-color: #f3f4f6;
-}
-
-tbody tr:hover {
-    background-color: #f1f5f9;
-}
-
-#logoutBtn {
-    background-color: #ef4444;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#logoutBtn:hover {
-    background-color: #dc2626;
-    transform: translateY(-2px);
-}
-
-#logoutBtn:active {
-    background-color: #b91c1c;
+.show-signup #signup-section {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 @media (max-width: 600px) {
