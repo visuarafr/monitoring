@@ -53,11 +53,14 @@ window.addEventListener('load', () => {
 
   const showCommercialDashboard = (userId) => {
     document.getElementById('commercial-dashboard').style.display = 'block';
-    db.collection('activities').where('userId', '==', userId).onSnapshot(snapshot => {
-      const activities = snapshot.docs.map(doc => doc.data());
-      console.log('Activities:', activities); // Log des activités pour déboguer
-      updateCommercialDashboard(activities);
-    });
+    db.collection('activities')
+      .where('userId', '==', userId)
+      .orderBy('date', 'asc')  // Tri par date en ordre croissant (chronologique)
+      .onSnapshot(snapshot => {
+        const activities = snapshot.docs.map(doc => doc.data());
+        console.log('Activities:', activities); // Log des activités pour déboguer
+        updateCommercialDashboard(activities);
+      });
 
     const dataForm = document.getElementById('dataForm');
     dataForm.addEventListener('submit', async (e) => {
@@ -85,11 +88,13 @@ window.addEventListener('load', () => {
 
   const showAdminDashboard = () => {
     document.getElementById('admin-dashboard').style.display = 'block';
-    db.collection('activities').onSnapshot(snapshot => {
-      const activities = snapshot.docs.map(doc => doc.data());
-      console.log('Admin Activities:', activities); // Log des activités pour déboguer
-      updateAdminDashboard(activities);
-    });
+    db.collection('activities')
+      .orderBy('date', 'asc')  // Tri par date en ordre croissant (chronologique)
+      .onSnapshot(snapshot => {
+        const activities = snapshot.docs.map(doc => doc.data());
+        console.log('Admin Activities:', activities); // Log des activités pour déboguer
+        updateAdminDashboard(activities);
+      });
   };
 
   const updateCommercialDashboard = (activities) => {
