@@ -2,12 +2,13 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
-  padding: 0;
+  padding: 20px 0 0 0; /* Ajout de padding en haut */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Aligner le contenu au début de la page */
   height: 100vh;
+  box-sizing: border-box; /* Inclure le padding dans la hauteur totale */
 }
 
 #auth-container, #commercial-dashboard, #admin-dashboard {
@@ -17,6 +18,7 @@ body {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   width: 80%;
   max-width: 600px;
+  box-sizing: border-box; /* S'assurer que le padding n'affecte pas la largeur */
 }
 
 h2 {
