@@ -37,6 +37,8 @@ window.addEventListener('load', () => {
     yesterday.setDate(today.getDate() - 1);
     dayBeforeYesterday.setDate(today.getDate() - 2);
 
+    console.log(`Date: ${dateString} -> Formatted: ${date.toDateString()}`);
+
     if (date.toDateString() === today.toDateString()) {
       return 'Aujourd\'hui';
     } else if (date.toDateString() === yesterday.toDateString()) {
@@ -53,6 +55,7 @@ window.addEventListener('load', () => {
     document.getElementById('commercial-dashboard').style.display = 'block';
     db.collection('activities').where('userId', '==', userId).onSnapshot(snapshot => {
       const activities = snapshot.docs.map(doc => doc.data());
+      console.log('Activities:', activities); // Log des activités pour déboguer
       updateCommercialDashboard(activities);
     });
 
@@ -84,6 +87,7 @@ window.addEventListener('load', () => {
     document.getElementById('admin-dashboard').style.display = 'block';
     db.collection('activities').onSnapshot(snapshot => {
       const activities = snapshot.docs.map(doc => doc.data());
+      console.log('Admin Activities:', activities); // Log des activités pour déboguer
       updateAdminDashboard(activities);
     });
   };
@@ -92,6 +96,8 @@ window.addEventListener('load', () => {
     const calls = activities.map(a => a.calls);
     const appointments = activities.map(a => a.appointments);
     const dates = activities.map(a => formatDate(a.date));
+
+    console.log('Formatted Dates:', dates); // Log des dates formatées pour déboguer
 
     if (callsChart) callsChart.destroy();
     if (appointmentsChart) appointmentsChart.destroy();
