@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
     document.getElementById('commercial-dashboard').style.display = 'block';
     db.collection('activities')
       .where('userId', '==', userId)
-      .orderBy('date', 'asc')  // Tri par date en ordre croissant (chronologique)
+      .orderBy('date', 'desc')  // Tri par date en ordre décroissant (du plus récent au plus ancien)
       .onSnapshot(snapshot => {
         const activities = snapshot.docs.map(doc => doc.data());
         console.log('Activities:', activities); // Log des activités pour déboguer
@@ -89,7 +89,7 @@ window.addEventListener('load', () => {
   const showAdminDashboard = () => {
     document.getElementById('admin-dashboard').style.display = 'block';
     db.collection('activities')
-      .orderBy('date', 'asc')  // Tri par date en ordre croissant (chronologique)
+      .orderBy('date', 'desc')  // Tri par date en ordre décroissant (du plus récent au plus ancien)
       .onSnapshot(snapshot => {
         const activities = snapshot.docs.map(doc => doc.data());
         console.log('Admin Activities:', activities); // Log des activités pour déboguer
