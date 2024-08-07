@@ -28,6 +28,27 @@ window.addEventListener('load', () => {
   let globalCallsChart;
   let globalAppointmentsChart;
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const yesterday = new Date(today);
+    const dayBeforeYesterday = new Date(today);
+
+    yesterday.setDate(today.getDate() - 1);
+    dayBeforeYesterday.setDate(today.getDate() - 2);
+
+    if (date.toDateString() === today.toDateString()) {
+      return 'Aujourd\'hui';
+    } else if (date.toDateString() === yesterday.toDateString()) {
+      return 'Hier';
+    } else if (date.toDateString() === dayBeforeYesterday.toDateString()) {
+      return 'Avant-hier';
+    } else {
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      return date.toLocaleDateString('fr-FR', options).toUpperCase();
+    }
+  };
+
   const showCommercialDashboard = (userId) => {
     document.getElementById('commercial-dashboard').style.display = 'block';
     db.collection('activities').where('userId', '==', userId).onSnapshot(snapshot => {
@@ -70,15 +91,13 @@ window.addEventListener('load', () => {
   const updateCommercialDashboard = (activities) => {
     const calls = activities.map(a => a.calls);
     const appointments = activities.map(a => a.appointments);
-    const dates = activities.map(a => a.date);
+    const dates = activities.map(a => formatDate(a.date));
 
-    // Destruction des graphiques s'ils existent déjà
     if (callsChart) callsChart.destroy();
     if (appointmentsChart) appointmentsChart.destroy();
 
-    // Création de graphiques en ligne
     callsChart = new Chart(document.getElementById('callsChart'), {
-      type: 'line',  // Changement en graphique en ligne
+      type: 'line',
       data: {
         labels: dates,
         datasets: [{
@@ -99,7 +118,7 @@ window.addEventListener('load', () => {
     });
 
     appointmentsChart = new Chart(document.getElementById('appointmentsChart'), {
-      type: 'line',  // Changement en graphique en ligne
+      type: 'line',
       data: {
         labels: dates,
         datasets: [{
@@ -123,7 +142,7 @@ window.addEventListener('load', () => {
     activityTableBody.innerHTML = '';
     activities.forEach(activity => {
       const row = activityTableBody.insertRow();
-      row.insertCell(0).innerText = activity.date;
+      row.insertCell(0).innerText = formatDate(activity.date);
       row.insertCell(1).innerText = activity.calls;
       row.insertCell(2).innerText = activity.appointments;
     });
@@ -142,13 +161,11 @@ window.addEventListener('load', () => {
 
     const users = Object.keys(callsByUser);
 
-    // Destruction des graphiques s'ils existent déjà
     if (globalCallsChart) globalCallsChart.destroy();
     if (globalAppointmentsChart) globalAppointmentsChart.destroy();
 
-    // Création de graphiques en ligne
     globalCallsChart = new Chart(document.getElementById('globalCallsChart'), {
-      type: 'line',  // Changement en graphique en ligne
+      type: 'line',
       data: {
         labels: users,
         datasets: [{
@@ -169,7 +186,7 @@ window.addEventListener('load', () => {
     });
 
     globalAppointmentsChart = new Chart(document.getElementById('globalAppointmentsChart'), {
-      type: 'line',  // Changement en graphique en ligne
+      type: 'line',
       data: {
         labels: users,
         datasets: [{
@@ -194,7 +211,7 @@ window.addEventListener('load', () => {
     activities.forEach(activity => {
       const row = globalActivityTableBody.insertRow();
       row.insertCell(0).innerText = activity.userId;
-      row.insertCell(1).innerText = activity.date;
+      row.insertCell(1).innerText = formatDate(activity.date);
       row.insertCell(2).innerText = activity.calls;
       row.insertCell(3).innerText = activity.appointments;
     });
