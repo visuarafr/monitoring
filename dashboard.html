@@ -42,14 +42,18 @@
     </div>
 
     <!-- Tableau de Bord des Administrateurs -->
-    <div id="admin-dashboard" style="display:none;">
-        <h2>Tableau de Bord Administrateur</h2>
+<div id="admin-dashboard" style="display:none;">
+    <h2>Tableau de Bord Administrateur</h2>
+    <label for="userSelect">Sélectionner un utilisateur :</label>
+    <select id="userSelect">
+        <option value="">-- Sélectionnez un utilisateur --</option>
+    </select>
+    <div id="userData" style="display:none;">
         <canvas id="globalCallsChart"></canvas>
         <canvas id="globalAppointmentsChart"></canvas>
         <table id="globalActivityTable">
             <thead>
                 <tr>
-                    <th>Commercial</th>
                     <th>Date</th>
                     <th>Appels</th>
                     <th>Rendez-vous</th>
@@ -57,7 +61,7 @@
             </thead>
             <tbody></tbody>
         </table>
-        <button id="logout-btn-admin">Déconnexion</button>
     </div>
-</body>
+    <button id="logout-btn-admin">Déconnexion</button>
+</div>
 </html>
