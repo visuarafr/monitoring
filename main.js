@@ -80,14 +80,38 @@ window.addEventListener('load', () => {
     });
   };
 
-  const showAdminDashboard = () => {
+  const showAdminDashboard = async () => {
     document.getElementById('admin-dashboard').style.display = 'block';
+
+    // Récupérer la liste des utilisateurs et remplir le menu déroulant
+    const usersSnapshot = await db.collection('users').get();
+    const userSelect = document.getElementById('userSelect');
+
+    usersSnapshot.forEach(doc => {
+        const option = document.createElement('option');
+        option.value = doc.id;
+        option.text = doc.data().name || doc.data().email;
+        userSelect.appendChild(option);
+    });
+
+    userSelect.addEventListener('change', () => {
+        const userId = userSelect.value;
+        if (userId) {
+            displayUserData(userId);
+        } else {
+            document.getElementById('userData').style.display = 'none';
+        }
+    });
+  };
+
+  const displayUserData = (userId) => {
     db.collection('activities')
-      .orderBy('date', 'desc')  // Tri par date en ordre décroissant (du plus récent au plus ancien)
-      .onSnapshot(snapshot => {
-        const activities = snapshot.docs.map(doc => doc.data()).reverse(); // Inverser les activités pour les graphiques
-        updateAdminDashboard(activities);
-      });
+        .where('userId', '==', userId)
+        .orderBy('date', 'desc')
+        .onSnapshot(snapshot => {
+            const activities = snapshot.docs.map(doc => doc.data()).reverse();
+            updateAdminDashboard(activities);
+        });
   };
 
   const updateCommercialDashboard = (activities) => {
@@ -96,7 +120,7 @@ window.addEventListener('load', () => {
     const dates = activities.map(a => formatDate(a.date));
 
     if (callsChart) callsChart.destroy();
-    if (appointmentsChart) appointmentsChart.destroy();
+    if (appointmentsChart) callsChart.destroy();
 
     callsChart = new Chart(document.getElementById('callsChart'), {
       type: 'line',
@@ -151,71 +175,64 @@ window.addEventListener('load', () => {
   };
 
   const updateAdminDashboard = (activities) => {
-    const callsByUser = {};
-    const appointmentsByUser = {};
-    activities.forEach(activity => {
-      const user = activity.userId;
-      if (!callsByUser[user]) callsByUser[user] = [];
-      if (!appointmentsByUser[user]) appointmentsByUser[user] = [];
-      callsByUser[user].push(activity.calls);
-      appointmentsByUser[user].push(activity.appointments);
-    });
+    document.getElementById('userData').style.display = 'block';
 
-    const users = Object.keys(callsByUser);
+    const calls = activities.map(a => a.calls);
+    const appointments = activities.map(a => a.appointments);
+    const dates = activities.map(a => formatDate(a.date));
 
     if (globalCallsChart) globalCallsChart.destroy();
     if (globalAppointmentsChart) globalAppointmentsChart.destroy();
 
     globalCallsChart = new Chart(document.getElementById('globalCallsChart'), {
-      type: 'line',
-      data: {
-        labels: users,
-        datasets: [{
-          label: 'Appels',
-          data: users.map(user => callsByUser[user].reduce((a, b) => a + b, 0)),
-          borderColor: 'rgba(255, 99, 132, 1)',
-          tension: 0.1,
-          fill: false
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Appels',
+                data: calls,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                tension: 0.1,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      }
     });
 
     globalAppointmentsChart = new Chart(document.getElementById('globalAppointmentsChart'), {
-      type: 'line',
-      data: {
-        labels: users,
-        datasets: [{
-          label: 'Rendez-vous',
-          data: users.map(user => appointmentsByUser[user].reduce((a, b) => a + b, 0)),
-          borderColor: 'rgba(153, 102, 255, 1)',
-          tension: 0.1,
-          fill: false
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Rendez-vous',
+                data: appointments,
+                borderColor: 'rgba(153, 102, 255, 1)',
+                tension: 0.1,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      }
     });
 
     const globalActivityTableBody = document.getElementById('globalActivityTable').getElementsByTagName('tbody')[0];
     globalActivityTableBody.innerHTML = '';
     activities.forEach(activity => {
-      const row = globalActivityTableBody.insertRow();
-      row.insertCell(0).innerText = activity.userId;
-      row.insertCell(1).innerText = formatDate(activity.date);
-      row.insertCell(2).innerText = activity.calls;
-      row.insertCell(3).innerText = activity.appointments;
+        const row = globalActivityTableBody.insertRow();
+        row.insertCell(0).innerText = formatDate(activity.date);
+        row.insertCell(1).innerText = activity.calls;
+        row.insertCell(2).innerText = activity.appointments;
     });
   };
 
