@@ -46,9 +46,9 @@
     <h2>Tableau de Bord Administrateur</h2>
     <label for="userSelect">Sélectionner un utilisateur :</label>
     <select id="userSelect">
-        <option value="">-- Sélectionnez un utilisateur --</option>
+        <option value="all">-- Statistiques globales --</option> <!-- Option par défaut pour les stats globales -->
     </select>
-    <div id="userData" style="display:none;">
+    <div id="userData">
         <canvas id="globalCallsChart"></canvas>
         <canvas id="globalAppointmentsChart"></canvas>
         <table id="globalActivityTable">
