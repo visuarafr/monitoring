@@ -76,23 +76,29 @@ window.addEventListener('load', () => {
     if (appointmentsChart) appointmentsChart.destroy();
 
     callsChart = new Chart(document.getElementById('callsChart'), {
-      type: 'bar',
+      type: 'line',  // Changement en graphique en ligne
       data: {
         labels: dates,
         datasets: [{
           label: 'Appels',
-          data: calls
+          data: calls,
+          fill: false,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          tension: 0.1
         }]
       }
     });
 
     appointmentsChart = new Chart(document.getElementById('appointmentsChart'), {
-      type: 'bar',
+      type: 'line',  // Changement en graphique en ligne
       data: {
         labels: dates,
         datasets: [{
           label: 'Rendez-vous',
-          data: appointments
+          data: appointments,
+          fill: false,
+          borderColor: 'rgba(54, 162, 235, 1)',
+          tension: 0.1
         }]
       }
     });
@@ -124,23 +130,29 @@ window.addEventListener('load', () => {
     if (globalAppointmentsChart) globalAppointmentsChart.destroy();
 
     globalCallsChart = new Chart(document.getElementById('globalCallsChart'), {
-      type: 'bar',
+      type: 'line',  // Changement en graphique en ligne
       data: {
         labels: users,
         datasets: [{
           label: 'Appels',
-          data: users.map(user => callsByUser[user].reduce((a, b) => a + b, 0))
+          data: users.map(user => callsByUser[user].reduce((a, b) => a + b, 0)),
+          fill: false,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          tension: 0.1
         }]
       }
     });
 
     globalAppointmentsChart = new Chart(document.getElementById('globalAppointmentsChart'), {
-      type: 'bar',
+      type: 'line',  // Changement en graphique en ligne
       data: {
         labels: users,
         datasets: [{
           label: 'Rendez-vous',
-          data: users.map(user => appointmentsByUser[user].reduce((a, b) => a + b, 0))
+          data: users.map(user => appointmentsByUser[user].reduce((a, b) => a + b, 0)),
+          fill: false,
+          borderColor: 'rgba(153, 102, 255, 1)',
+          tension: 0.1
         }]
       }
     });
