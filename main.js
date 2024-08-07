@@ -96,11 +96,20 @@ window.addEventListener('load', () => {
 
     userSelect.addEventListener('change', () => {
         const userId = userSelect.value;
-        if (userId) {
-            displayUserData(userId);
+        if (userId === 'all') {
+            displayGlobalData(); // Affiche les statistiques globales
         } else {
-            document.getElementById('userData').style.display = 'none';
+            displayUserData(userId); // Affiche les statistiques d'un utilisateur spécifique
         }
+    });
+
+    displayGlobalData(); // Affiche les statistiques globales par défaut
+  };
+
+  const displayGlobalData = () => {
+    db.collection('activities').orderBy('date', 'desc').onSnapshot(snapshot => {
+        const activities = snapshot.docs.map(doc => doc.data()).reverse();
+        updateAdminDashboard(activities);
     });
   };
 
